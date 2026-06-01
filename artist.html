@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Artist Spotlight</title>
+    <link rel="stylesheet" href="CSS/artist.css">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="nav-left">
+        <a href="homepage.html" class="back-btn">← Back</a>
+    </div>
+    <div class="nav-center">
+        <a href="artist.html">Artist</a>
+        <a href="review.html">Review</a>
+        <a href="playlist.html">Playlist</a>
+    </div>
+    <div class="nav-right">
+        <a href="favourite.html" class="heart-btn">❤️</a>
+    </div>
+</nav>
+
+<main id="artist-display-area"></main>
+
+<nav class="bottom-nav">
+    <a href="homepage.html" class="nav-item">⌂ <span>Home</span></a>
+    <a href="profile.html" class="nav-item">👤 <span>Profile</span></a>
+    <a href="setting.html" class="nav-item">⚙ <span>Settings</span></a>
+</nav>
+
+<script>
+const myArtists = [
+    {
+        name: "Niki",
+        genre: "R&B / Indie Pop",
+        bio: "Niki has this incredible ability to make every song feel like a personal diary entry. Her songwriting is so relatable and her voice is like silk. She's the pride of South-East Asia, born and raised in Jakarta, Indonesia.",
+        favoriteSong: "Autumn",
+        background: "image/niki_background.jpg", 
+        link: "https://youtu.be/toHJ3yp4TY8"
+    },
+    {
+        name: "Daniel Caesar",
+        genre: "R&B / Soul",
+        bio: "Daniel Caesar creates soulful, stripped-back R&B that feels timeless. His vocals are smooth, often accompanied by gospel-inspired arrangements that bring deep emotion to every track.",
+        favoriteSong: "Always",
+        background: "image/caesar_background.webp", 
+        link: "https://youtu.be/uo33QyBaZ4w"
+    },
+    {
+        name: "Yuna",
+        genre: "R&B / Indie Pop / Folk / Pop",
+        bio: "Yuna Zarai is a Malaysian singer-songwriter who was born in Alor Setar, Kedah. She earned international recognition for her success in the pop and R&B music genres, particularly for her collaboration with Usher on the song Crush. Yuna has a magical touch when it comes to writing songs, and her songs are a major influence on the teenage generation in Malaysia due to the incredible lyrics and powerful vocals that she has. She became a role model for the local industry and artists, making her an artist that deserves to be looked up to.",
+        favoriteSong: "Lautan",
+        background: "image/yuna_background.jpg", 
+        link: "https://youtu.be/amcPYr3OG0A?si=9qJ_MeKK_aVYvi69"
+    },
+    {
+        name: "Taylor Swift",
+        genre: "Country/ Indie-Folk / Pop",
+        bio: "Taylor Swift is a globally influential singer-songwriter known for turning personal stories into vivid, emotionally sharp music that resonates across generations. She began as a country artist and evolved into pop, indie, and alternative sounds, constantly reinventing her style while keeping her signature storytelling at the center. Beyond music, she’s recognized for her strong control over her artistry and career, including re-recording her albums to own her work. Her songs often explore love, heartbreak, identity, and growth, making listeners feel like they’re flipping through pages of a very honest diary that somehow feels like their own.",
+        favoriteSong: "Cardigan",
+        background: "image/taylor_swift.webp", 
+        link: "https://youtu.be/K-a8s8OLBSE?si=D64TfO-EA217_X63"
+    },
+    {
+        name: "Harry Style",
+        genre: "Pop / Soft-Rock / Pop-Rock",
+        bio: "Harry Styles is a singer, songwriter, and actor known for blending retro-inspired pop and rock with a modern, expressive twist. Rising to fame in One Direction, he later carved out a solo career defined by smooth vocals, emotional honesty, and a fearless approach to style and identity. His music often explores love, freedom, and self-discovery, while his fashion challenges traditional norms, making him not just a musician but a cultural figure who encourages individuality and confidence.",
+        favoriteSong: "Matilda",
+        background: "image/harry_style.jpg", 
+        link: "https://youtu.be/lVnzO7opqNs?si=s0VzsmdVzt3gEf6B"
+    },
+    {
+        name: "NCT Dream",
+        genre: "Pop / Soft-Rock / Pop-Rock",
+        bio: "NCT Dream is a vibrant K-pop group known for their youthful energy, evolving sound, and strong sense of friendship that shines through both their music and performances. Originally formed as the teen-focused unit of NCT, they grew from bright, playful tracks into more mature concepts while keeping their signature warmth and chemistry. Their songs often explore themes of youth, dreams, growth, and nostalgia, paired with dynamic choreography and emotionally charged vocals, making them feel like a soundtrack to growing up alongside them.",
+        favoriteSong: "Hello Future",
+        background: "image/nct_dream.jpg", 
+        link: "https://youtu.be/QPUjV7epJqE?si=isgt2xFd3XaFxAEQ"
+    }
+
+];
+
+function getThumb(url) {
+    let id = "";
+    if (url.includes("youtu.be/")) {
+        id = url.split("youtu.be/")[1].split("?")[0];
+    } else {
+        id = url.split("v=")[1].split("&")[0];
+    }
+    return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+}
+
+function renderAllArtists() {
+    const mainArea = document.getElementById('artist-display-area');
+    mainArea.innerHTML = ""; // Clear any placeholder text
+
+    myArtists.forEach(artist => {
+        const thumbUrl = getThumb(artist.link);
+        
+        // Create a new SECTION for each artist
+        const section = document.createElement('section');
+        section.className = 'artist-spotlight';
+        
+        section.innerHTML = `
+            <div class="artist-inner-bg">
+                <img src="${artist.background}" alt="${artist.name} Background">
+            </div>
+
+            <div class="content-wrapper">
+                <div class="narrative-side">
+                    <span class="category-tag">Featured Artist</span>
+                    <h2 class="artist-title">${artist.name}</h2>
+                    <p class="genre-text">Genre: <span>${artist.genre}</span></p>
+                    <div class="story-body">
+                        <p>${artist.bio}</p>
+                    </div>
+                </div>
+
+                <div class="visual-side">
+                    <div class="song-card">
+                        <div class="image-container">
+                            <img src="${thumbUrl}" alt="YouTube Thumbnail">
+                        </div>
+                        <div class="song-info">
+                            <small>FAVORITE TRACK</small>
+                            <h3>${artist.favoriteSong}</h3>
+                            <a href="${artist.link}" target="_blank" class="action-btn">Listen Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        mainArea.appendChild(section);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', renderAllArtists);
+</script>
+
+</body>
+</html>

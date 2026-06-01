@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My On Repeat</title>
+    <link rel="stylesheet" href="CSS/playlist_music.css">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="nav-left">
+        <a href="homepage.html" id="backBtn" class="back-btn">← Back</a>
+    </div>
+
+    <div class="nav-center">
+        <a href="artist.html">Artist</a>
+        <a href="review.html">Review</a>
+        <a href="playlist.html">Playlist</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="favourite.html" class="heart-btn">❤️</a>
+    </div>
+</nav>
+
+    <main class="playlist-container">
+        <header class="page-header">
+            <h1>Curated Playlists 🎶</h1>
+            <p>Your personal sanctuary of sound.</p>
+        </header>
+
+        <section class="glass-form">
+            <input type="text" id="playlist-name" placeholder="Playlist Name...">
+            <input type="text" id="playlist-link" placeholder="YouTube Link...">
+            <button onclick="addPlaylist()" class="action-btn">Add to Collection</button>
+        </section>
+
+        <div id="playlist-grid" class="playlist-grid"></div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="homepage.html" class="nav-item">⌂ <span>Home</span></a>
+        <a href="profile.html" class="nav-item">👤 <span>Profile</span></a>
+        <a href="setting.html" class="nav-item">⚙ <span>Settings</span></a>
+    </nav>   
+
+ <script>
+document.addEventListener('DOMContentLoaded', () => {
+    initializePlaylistDataset();
+    loadPlaylists();
+});
+
+// Thumbnail img //
+function getPlaylistThumb(url) {
+    let videoId = "";
+    let playlistId = "";
+    
+    // 1. Check if it's a playlist link
+    if (url.includes("list=")) {
+        playlistId = url.split("list=")[1].split("&")[0];
+        return "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1000&auto=format&fit=crop";
+    }
+    
+    // 2. Check if it's a standard video link
+    if (url.includes("v=")) {
+        videoId = url.split("v=")[1].split("&")[0];
+    } 
+    else if (url.includes("youtu.be/")) {
+        videoId = url.split("youtu.be/")[1].split("?")[0];
+    }
+    
+    return videoId 
+        ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` 
+        : "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1000&auto=format&fit=crop";
+}
+
+
+function initializePlaylistDataset() {
+    let collections = localStorage.getItem('myPlaylists');
+    
+    if (!collections || JSON.parse(collections).length === 0) {
+        const initialPlaylists = [
+            {
+                id: 2001,
+                name: "Late Night Chill Lo-Fi Beats",
+                link: "https://youtube.com/playlist?list=PLiH_CEJMJ2_mAcqH6hxpBOrpO2EQ1AvQi&si=uVNveJvke6bv-RPJ",
+                thumb: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1000&auto=format&fit=crop" /* Premium aesthetic backdrop */
+            },
+            {
+                id: 2002,
+                name: "Daniel Caesar Essentials",
+                link: "https://youtube.com/playlist?list=PLOYOgVMUaWvircjNFGa2f6jE_uEbyXrNe&si=tjArToTi4mMgTJnt",
+                thumb: "image/never_enough.jpg" /* Reuses your local Daniel Caesar album artwork automatically! */
+            },
+            {
+                id: 2003,
+                name: "Acoustic Indie Session",
+                link: "https://youtube.com/playlist?list=PLySjuLnB1cYgxNCj2kYXc-gotOfNBq2sW&si=tdysL4nCHvp2Wd0U",
+                thumb: "https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?q=80&w=1000&auto=format&fit=crop"
+            }
+        ];
+        localStorage.setItem('myPlaylists', JSON.stringify(initialPlaylists));
+    }
+}
+
+function addPlaylist() {
+    const nameInput = document.getElementById('playlist-name');
+    const linkInput = document.getElementById('playlist-link');
+
+    if (!nameInput.value || !linkInput.value) {
+        alert("Please enter a name and a link!");
+        return;
+    }
+
+    const newPlaylist = {
+        id: Date.now(),
+        name: nameInput.value,
+        link: linkInput.value,
+        thumb: getPlaylistThumb(linkInput.value)
+    };
+
+    let collections = JSON.parse(localStorage.getItem('myPlaylists')) || [];
+    collections.push(newPlaylist);
+    localStorage.setItem('myPlaylists', JSON.stringify(collections));
+
+    nameInput.value = "";
+    linkInput.value = "";
+    loadPlaylists();
+}
+
+function loadPlaylists() {
+    const grid = document.getElementById('playlist-grid');
+    const collections = JSON.parse(localStorage.getItem('myPlaylists')) || [];
+
+    if (collections.length === 0) {
+        grid.innerHTML = `<p style="text-align: center; grid-column: 1/-1; opacity: 0.6; color: #2A1A0A;">Your collection is empty. Add a YouTube playlist above!</p>`;
+        return;
+    }
+
+    grid.innerHTML = collections.map(p => `
+        <div class="playlist-card">
+            <button class="delete-btn" onclick="deletePlaylist(${p.id})">×</button>
+            <img src="${p.thumb}" class="playlist-thumb">
+            <h3>${p.name}</h3>
+            <a href="${p.link}" target="_blank" class="action-btn">Open YouTube</a>
+        </div>
+    `).join('');
+} 
+
+function deletePlaylist(id) {
+    let collections = JSON.parse(localStorage.getItem('myPlaylists')) || [];
+    collections = collections.filter(p => p.id !== id);
+    localStorage.setItem('myPlaylists', JSON.stringify(collections));
+    loadPlaylists();
+}
+</script>
+
+</body>
+</html>

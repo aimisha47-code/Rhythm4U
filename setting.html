@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My On Repeat</title>
+    <link rel="stylesheet" href="CSS/setting.css">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="nav-left">
+        <a href="homepage.html" id="backBtn" class="back-btn">← Back</a>
+    </div>
+
+    <div class="nav-center">
+        <a href="artist.html">Artist</a>
+        <a href="review.html">Review</a>
+        <a href="playlist.html">Playlist</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="favourite.html" class="heart-btn">❤️</a>
+    </div>
+</nav>
+
+    <main class="settings-container">
+        <header class="page-header">
+            <h1>Sanctuary Settings</h1>
+            <p>Adjust the vibe of your digital space.</p>
+        </header>
+
+        <div class="glass-form settings-card">
+            <div class="setting-group">
+                <h3>Profile</h3>
+                <input type="text" id="user-name" placeholder="Change Display Name">
+            </div>
+
+        <hr class="zen-divider">
+
+            <div class="setting-group">
+                <h3>Visual Vibe</h3>
+                <div class="toggle-row">
+                    <span>Dark Mode</span>
+                    <input type="checkbox" id="dark-mode-toggle" class="zen-toggle">
+                </div>
+            </div>
+
+        <hr class="zen-divider">
+
+            <div class="setting-group">
+                <h3>Sanctuary Reset</h3>
+                <p style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 10px;">Warning: This will delete all your playlists and reviews.</p>
+                <button onclick="clearAllData()" class="delete-btn-large">Reset Everything</button>
+            </div>
+
+            <button onclick="saveSettings()" class="action-btn" style="margin-top: 30px; width: 100%;">Save Changes</button>
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="homepage.html" class="nav-item">⌂ <span>Home</span></a>
+        <a href="profile.html" class="nav-item">👤 <span>Profile</span></a>
+        <a href="setting.html" class="nav-item">⚙ <span>Settings</span></a>
+    </nav>   
+
+    <script>document.addEventListener('DOMContentLoaded', () => {
+  
+        const savedName = localStorage.getItem('userName');
+        if (savedName) document.getElementById('user-name').value = savedName;
+    });
+
+    function saveSettings() {
+        const newName = document.getElementById('user-name').value;
+        if (newName) {
+            localStorage.setItem('userName', newName);
+            alert("Settings saved. Welcome, " + newName + "!");
+        }
+    }
+
+    function clearAllData() {
+        if (confirm("Are you sure? This will clear your entire zen collection!")) {
+            localStorage.removeItem('myPlaylists');
+            localStorage.removeItem('myReviews');
+            alert("Sanctuary has been reset.");
+            window.location.href = 'homepage.html';
+        }
+    }
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-theme');
+        darkModeToggle.checked = true;
+    }
+
+    darkModeToggle.addEventListener('change', () => {
+        if (darkModeToggle.checked) {
+            document.body.classList.add('dark-theme');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.remove('dark-theme');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+    </script>
+    
+</body>
+</html>

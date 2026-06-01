@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Homepage</title>
+  <link rel="stylesheet" href="css/homepage.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<nav class="top-nav">
+    <div class="nav-left">
+        <a href="index.html" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="nav-center">
+        <a href="artist.html">Artist</a>
+        <a href="review.html">Review</a>
+        <a href="playlist.html">Playlist</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="favourite.html" class="heart-btn">❤️</a>
+    </div>
+</nav>
+
+    <header class="profile-picture">
+        <div class="banner"></div>
+
+        <div class="profile-container">
+            <div class="pfp-wrapper">
+                <img src="image/pp2.jpg" alt="Alisha" class="pfp">
+            </div>
+
+            <div class="welcome-text">
+                <h1>Hi Alisha,</h1>
+                <p>Time to get lost in the soul. Peace is found in the rhythm.</p>
+            </div>
+        </div>
+    </header>
+
+<div class="dashboard-analytics-container">
+    
+    <div class="analytics-card">
+        <h2 class="analytics-title">Weekly Insights</h2>
+        <div class="meter-wrapper">
+            <div class="svg-gauge-container">
+                <input type="range" id="gaugeSlider" min="0" max="20" step="0.1" value="14.5" class="gauge-slider">
+                
+                <svg viewBox="0 0 220 120" class="gauge-svg-element">
+                    <path d="M 20 110 A 90 90 0 0 1 200 110" 
+                          fill="none" 
+                          stroke="rgba(0, 0, 0, 0.06)" 
+                          stroke-width="14" 
+                          stroke-linecap="round" />
+                    
+                    <path id="svgProgressPath" 
+                          d="M 20 110 A 90 90 0 0 1 200 110" 
+                          fill="none" 
+                          stroke="#ff4d88" 
+                          stroke-width="14" 
+                          stroke-linecap="round" />
+                    
+                    <circle id="svgHandleKnob" cx="20" cy="110" r="10" fill="#fff" stroke="#ff4d88" stroke-width="3" />
+                </svg>
+
+                <div class="gauge-center-display">
+                    <span class="gauge-value" id="gaugeValue">14.5</span>
+                    <span class="gauge-unit">hrs / 20 hrs</span>
+                </div>
+            </div>
+        </div>
+        <p class="analytics-footer" id="gaugeStatus">You hit your weekly vibe target! Keep flowing. ✨</p>
+    </div>
+
+    <div class="analytics-card">
+        <h2 class="analytics-title">Top Tracks (This Month)</h2>
+        <div class="chart-wrapper" style="display: block; min-height: 160px; padding: 10px 0;">
+            <canvas id="topTracksChart"></canvas>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h2 class="analytics-title">Top Artists (This Month)</h2>
+        <div class="top-artists-leaderboard">
+            <div class="artist-rank-row">
+                <div class="rank-badge gold">1</div>
+                <img src="image/daniel pfp.jpg" alt="Daniel Caesar" class="artist-rank-avatar" onerror="this.src='image/pp2.jpg'">
+                <div class="artist-rank-info">
+                    <h3>Daniel Caesar</h3>
+                    <p>261 minutes</p>
+                </div>
+            </div>
+            <div class="artist-rank-row">
+                <div class="rank-badge silver">2</div>
+                <img src="image/justin pfp.jpg" alt="Justin bieber" class="artist-rank-avatar" onerror="this.src='image/pp2.jpg'">
+                <div class="artist-rank-info">
+                    <h3>Justin Bieber</h3>
+                    <p>174 minutes</p>
+                </div>
+            </div>
+            <div class="artist-rank-row">
+                <div class="rank-badge bronze">3</div>
+                <img src="image/yuna pfp.jpg" alt="Yuna" class="artist-rank-avatar" onerror="this.src='image/pp2.jpg'">
+                <div class="artist-rank-info">
+                    <h3>Yuna</h3>
+                    <p>165 minutes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h2 class="analytics-title">Genre Breakdown</h2>
+        <div class="chart-wrapper doughnut-chart-canvas">
+            <canvas id="genreChart"></canvas>
+        </div>
+    </div>
+
+</div>
+
+    <audio id="main-audio" src="music/Daniel_Caesar_Always.mp3"></audio>
+
+    <section class="recently-played-container">
+        <div class="section-header">
+            <h2>Recently Played <span>›</span></h2>
+        </div>
+
+        <div class="scroll-wrapper" id="album-carousel">
+            
+            <div class="album-card" onclick="playSong('Always', 'Daniel Caesar', 'image/never_enough.jpg', 'music/Daniel_Caesar_Always.mp3')">
+                <img src="image/never_enough.jpg" alt="Always">
+                <h3>Always</h3>
+                <p>Daniel Caesar</p>
+            </div>
+
+            <div class="album-card" onclick="playSong('Never Let Go', 'LNGSHOT', 'image/shot_callers.jpg', 'music/neverletgo.mp3')">
+                <img src="image/shot_callers.jpg" alt="Never Let Go">
+                <h3>Never Let Go</h3>
+                <p>LNGSHOT</p>
+            </div>
+
+            <div class="album-card" onclick="playSong('Sofea Jane', 'BLACK', 'image/sofea_jane.png', 'music/sofea_jane.mp3')">
+                <img src="image/sofea_jane.png" alt="Sofea Jane">
+                <h3>Sofea Jane</h3>
+                <p>BLACK</p>
+            </div>
+
+            <div class="album-card" onclick="playSong('Kasih Putih', 'Gleen Fredly', 'image/kasih_putih.jpg', 'music/kasih_putih.mp3')">
+                <img src="image/kasih_putih.jpg" alt="Kasih Putih">
+                <h3>Kasih Putih</h3>
+                <p>Gleen Fredly</p>
+            </div>
+
+            <div class="album-card" onclick="playSong('Lautan', 'Yuna', 'image/lautan.jpg', 'music/lautan_yuna.mp3')">
+                <img src="image/lautan.jpg" alt="Lautan">
+                <h3>Lautan</h3>
+                <p>Yuna</p>
+            </div>
+
+            <div class="album-card" onclick="playSong('Sempurna', 'Imsomniacks', 'image/sempurna_imsomniacks.jpg', 'music/sempurna_imsomniacks.mp3')">
+                <img src="image/sempurna_imsomniacks.jpg" alt="Sempurna">
+                <h3>Sempurna</h3>
+                <p>Imsomniacks</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="fav-gallery">
+        <div class="section-header">
+        <h2>Favourite Gems <span>✨</span></h2>
+        </div>
+        <div class="scroll-wrapper">
+            <div class="album-card"><img src="image/ruby_jennie.png" alt="Ruby-JENNIE">
+                <h3>Ruby</h3>
+                <p>JENNIE</p>
+            </div>
+            <div class="album-card"><img src="image/never_enough.jpg" alt="NEVER ENOUGH-Daniel Caesar">
+                <h3>NEVER ENOUGH</h3>
+                <p>Daniel Caesar</p>
+            </div>
+            <div class="album-card"><img src="image/cortis.jpeg" alt="COLOR OUTSIDE THE LINES-CORTIS">
+                <h3>COLOR OUTSIDE THE LINES-EP</h3>
+                <p>CORTIS</p>
+            </div>
+            <div class="album-card"><img src="image/rosie.png" alt="rosie-ROSÉ">
+                <h3>rosie</h3>
+                <p>ROSÉ</p>
+            </div>
+            <div class="album-card"><img src="image/baby_dont_cry.jpg" alt="EXO-XOXO (The 1st Album)">
+                <h3>XOXO-The 1st Album</h3>
+                <p>EXO</p>
+            </div>
+            <div class="album-card"><img src="image/f(x).jpg" alt="f(x)-Pink Tape">
+                <h3>Pink Tape</h3>
+                <p>f(x)</p>
+            </div>
+            <div class="album-card"><img src="image/lover.png" alt="Taylor Swift-Lover">
+                <h3>Lover</h3>
+                <p>Taylor Swift</p>
+            </div>
+            <div class="album-card"><img src="image/reputation.png" alt="Taylor Swift-Reputation">
+                <h3>Reputation</h3>
+                <p>Taylor Swift</p>
+            </div>
+        </div>
+    </section>
+
+<section class="mood-display">
+        <div class="section-header">
+            <h2>Vibe Check <span>🧘🏻‍♀️</span></h2>
+            <p>Song Recommendations to fit your Vibe <span>🎵</span></p>
+        </div>
+        <div class="aura-container">
+            <button class="aura-card" onclick="showMood('Calm')" style="--aura-glow: #ff9a9e;">
+                <span class="aura-emoji">🌙</span>
+                <span class="aura-label">CALM</span>
+            </button>
+            <button class="aura-card" onclick="showMood('Dreamy')" style="--aura-glow: #a1c4fd;">
+                <span class="aura-emoji">✨</span>
+                <span class="aura-label">DREAMY</span>
+            </button>
+            <button class="aura-card" onclick="showMood('Energetic')" style="--aura-glow: #84fab0;">
+                <span class="aura-emoji">🌿</span>
+                <span class="aura-label">ENERGETIC</span>
+            </button>
+            <button class="aura-card" onclick="showMood('Melancholy')" style="--aura-glow: #fccb90;">
+                <span class="aura-emoji">🌤️</span>
+                <span class="aura-label">MELANCHOLY</span>
+            </button>
+        </div>
+    </section>
+
+    <div id="mood-display-container" class="mood-recommendations-panel" style="display: none;">
+        <div class="mood-panel-header">
+            <h3 class="mood-panel-title">
+                ✨ Recommended Tracks for your <span id="current-mood-title">Calm</span> Mood
+            </h3>
+            <button onclick="closeMood()" class="mood-close-btn">✕ Close</button>
+        </div>
+        
+        <div class="table-scroll-wrapper">
+            <table class="songs-recommendation-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">#</th>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Popularity/Plays</th>
+                        <th style="text-align: right; padding-right: 25px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="mood-songs-tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<main class="content"></main>
+
+    <div class="music-player-bar" id="playerBar">
+        <div class="player-content">
+            <div class="current-track">
+                <img src="image/never_enough.jpg" id="playerImg" alt="Now Playing">
+                <div class="track-text">
+                    <span id="playerTitle">Always</span>
+                    <span id="playerArtist">Daniel Caesar</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="ctrl-btn">⏮</button>
+                <button class="play-btn" onclick="togglePlay()">▶</button>
+                <button class="ctrl-btn">⏭</button>
+            </div>
+
+            <div class="volume-ctrl">
+                <span>🔈</span>
+                <input type="range" class="vol-slider">
+            </div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+
+        <nav class="bottom-nav">
+            <a href="homepage.html" class="nav-item">⌂ <span>Home</span></a>
+            <a href="profile.html" class="nav-item">👤 <span>Profile</span></a>
+            <a href="setting.html" class="nav-item">⚙ <span>Settings</span></a>
+        </nav>
+
+<script>
+    // Song Recommendation//
+    const moodMusicDatabase = {
+        "CALM": [
+            { title: "Always", artist: "Daniel Caesar", count: "670k plays", src: "music/Daniel_Caesar_Always.mp3", img: "image/never_enough.jpg" },
+            { title: "HEARTBREAK ANNIVERSARY", artist: "GIVĒON ", count: "100k plays", src: "music/Heartbreak_Anniversary.mp3", img: "image/giveon.png" },
+            { title: "Glue Song (feat. Clairo)", artist: "beabadoobee", count: "190k plays", src: "music/glue_song.mp3", img: "image/glue_song.jpg" },
+            { title: "GO BABY", artist: "Justin Bieber", count: "800k plays", src: "music/gobaby.mp3", img: "image/swag.jpg" },
+            { title: "Pink + White", artist: "Frank Ocean", count: "560k plays", src: "music/pink_white.mp3", img: "image/blonde.jpeg" },
+            { title: "Pretty Girl", artist: "Clairo", count: "390k plays", src: "music/pretty_girl.mp3", img: "image/pretty_girl.avif" }
+        ],
+        "DREAMY": [
+            { title: "Lover", artist: "Taylor Swift", count: "780k plays", src: "music/lover.mp3", img: "image/lover.png" },
+            { title: "Twilight Zone", artist: "Ariana Grande", count: "848k plays", src: "music/twilight_zone.mp3", img: "image/eternal_sunshine.jpg" },
+            { title: "Ditto", artist: "New Jeans", count: "800k plays", src: "music/ditto.mp3", img: "image/newjenas.png" },
+            { title: "Hold Me Down", artist: "Daniel Caesar", count: "560k plays", src: "music/Hold_Me_Down.mp3", img: "image/hold_me_down.png" },
+            { title: "The Only Exception", artist: "Paramore", count: "600k plays", src: "music/the_only_exception.mp3", img: "image/paramore.jpg" },
+            { title: "love.", artist: "wave to eart", count: "500k plays", src: "music/love_wte.mp3", img: "image/love_wte.png" }
+        ],
+        "ENERGETIC": [
+            { title: "REDRED", artist: "CORTIS", count: "546k plays", src: "music/redred.mp3", img: "image/redred.png" },
+            { title: "404 (New Era)", artist: "KiiiKiii", count: "150k plays", src: "music/newera.mp3", img: "image/newera.jpg" },
+            { title: "RUDE!", artist: "Hearts2Hearts", count: "6000k plays", src: "music/rude_h2h.mp3", img: "image/rude_h2h.png" },
+            { title: "Whiplash", artist: "aespa", count: "860k plays", src: "music/whiplash_aespa.mp3", img: "image/aespa_whiplash.png" },
+            { title: "FaSHioN", artist: "CORTIS", count: "466k plays", src: "music/cortis_fashion.mp3", img: "image/cortis.jpeg" },
+            { title: "Growl", artist: "EXO", count: "676k plays", src: "music/exo_growl.mp3", img: "image/baby_dont_cry.jpg" }
+        ],
+        "MELANCHOLY": [
+            { title: "Lautan", artist: "Yuna", count: "155k plays", src: "music/lautan_yuna.mp3", img: "image/lautan.jpg" },
+            { title: "About You", artist: "The 1975", count: "899k plays", src: "music/about_you.mp3", img: "image/the1975.png" },
+            { title: "kota ini tak sama tanpamu", artist: "nadhif basalamah", count: "208k plays", src: "music/kota_ini_tak_sama_tanpamu.mp3", img: "image/nadhif.jpg" },
+            { title: "Emily Song", artist: "Daniel Caesar", count: "543k plays", src: "music/emily_song.mp3", img: "image/emily_song.png" },
+            { title: "Backburner", artist: "NIKI", count: "439k plays", src: "music/backburner.mp3", img: "image/autumn_niki.png" },
+            { title: "Sempurna", artist: "Imsomniacks", count: "108k plays", src: "music/sempurna_imsomniacks.mp3", img: "image/sempurna_imsomniacks.jpg" }
+        ]
+    };
+
+    // Vibe Check Mood //
+    function showMood(moodName) {
+        console.log("showMood custom action triggered for: ", moodName);
+        
+        const container = document.getElementById('mood-display-container');
+        const titleSpan = document.getElementById('current-mood-title');
+        const tbody = document.getElementById('mood-songs-tbody');
+        
+        if (!container || !tbody) {
+            console.error("Layout Elements Missing! Please check your HTML IDs.");
+            return;
+        }
+
+        const key = moodName.toUpperCase().trim();
+        if (titleSpan) titleSpan.innerText = moodName;
+        
+        tbody.innerHTML = "";
+        const tracklist = moodMusicDatabase[key] || moodMusicDatabase["CALM"];
+        
+        tracklist.forEach((track, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>
+                    <div class="table-title-cell">
+                        <img src="${track.img}" alt="Cover" class="table-album-art-thumb" onerror="this.src='image/never_enough.jpg'">
+                        <span class="table-bold-title">${track.title}</span>
+                    </div>
+                </td>
+                <td>${track.artist}</td>
+                <td class="table-stats-pill">${track.count}</td>
+                <td>
+                    <button class="table-play-action-btn" onclick="playSong('${track.title.replace(/'/g, "\\'")}', '${track.artist.replace(/'/g, "\\'")}', '${track.img}', '${track.src}')">
+                        ▶ Play
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+        
+        container.style.setProperty('display', 'block', 'important');
+        
+        setTimeout(() => {
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 50);
+    }
+
+    function closeMood() {
+        const container = document.getElementById('mood-display-container');
+        if (container) container.style.setProperty('display', 'none', 'important');
+    }
+
+    //  Local storage audio playback persistence wrapper logic //
+    function playSong(title, artist, imgSrc, audioSrc) {
+        localStorage.setItem('globalTrackTitle', title);
+        localStorage.setItem('globalTrackArtist', artist);
+        localStorage.setItem('globalTrackImg', imgSrc);
+        localStorage.setItem('globalTrackSrc', audioSrc);
+        localStorage.setItem('globalIsPlaying', 'true');
+
+        const audio = document.getElementById('main-audio');
+        const pTitle = document.getElementById('playerTitle');
+        const pArtist = document.getElementById('playerArtist');
+        const pImg = document.getElementById('playerImg');
+        const playBtn = document.querySelector('.play-btn');
+
+        if (pTitle) pTitle.innerText = title;
+        if (pArtist) pArtist.innerText = artist;
+        if (pImg) pImg.src = imgSrc;
+        
+        if (audio && audioSrc) {
+            audio.src = audioSrc; 
+            audio.play().catch(err => console.log("Audio stream playback click handled: ", err));
+            if (playBtn) playBtn.innerText = "⏸️";
+        }
+    }
+
+    function togglePlay() {
+        const audio = document.getElementById('main-audio');
+        const playBtn = document.querySelector('.play-btn');
+        if (!audio) return;
+        
+        if (audio.paused) {
+            audio.play().catch(err => console.log(err));
+            if (playBtn) playBtn.innerText = "⏸️";
+            localStorage.setItem('globalIsPlaying', 'true');
+        } else {
+            audio.pause();
+            if (playBtn) playBtn.innerText = "▶️";
+            localStorage.setItem('globalIsPlaying', 'false');
+        }
+    }
+
+    // Dashboard //
+    window.addEventListener('DOMContentLoaded', () => {
+        
+        // 1. Barchart //
+        const chartCanvas = document.getElementById('topTracksChart');
+        if (chartCanvas) {
+            const ctx = chartCanvas.getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Firasat', 'Lautan', 'party 4 u', 'Blessed', 'Kasih Putih'],
+                    datasets: [{
+                        label: 'Plays This Month',
+                        data: [32, 29, 25, 19, 17],
+                        backgroundColor: [
+                            'rgba(255, 77, 136, 0.5)',  /* Pink */
+                            'rgba(186, 104, 200, 0.5)', /* Purple */
+                            'rgba(77, 182, 172, 0.5)',  /* Teal */
+                            'rgba(143, 188, 143, 0.5)'  /* Sage */
+                        ],
+                        borderColor: [
+                            'rgba(255, 77, 136, 1)',
+                            'rgba(186, 104, 200, 1)',
+                            'rgba(77, 182, 172, 1)',
+                            'rgba(143, 188, 143, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0, 0, 0, 0.03)' },
+                            ticks: { color: '#2A1A0A', font: { size: 10 } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#2A1A0A', font: { size: 11, weight: '500' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 2. Weekly Insight //
+        const gaugeSlider = document.getElementById('gaugeSlider');
+        const gaugeValue = document.getElementById('gaugeValue');
+        const gaugeStatus = document.getElementById('gaugeStatus');
+        const progressPath = document.getElementById('svgProgressPath');
+        const handleKnob = document.getElementById('svgHandleKnob');
+
+        if (gaugeSlider && progressPath) {
+            const totalLength = progressPath.getTotalLength();
+            progressPath.style.strokeDasharray = totalLength;
+
+            function updateGaugeView() {
+                const hours = parseFloat(gaugeSlider.value);
+                const maxHours = 20;
+                const percentage = Math.min(Math.max(hours / maxHours, 0), 1);
+                
+                const strokeOffset = totalLength - (percentage * totalLength);
+                progressPath.style.strokeDashoffset = strokeOffset;
+                
+                if (handleKnob) {
+                    const pointLocation = progressPath.getPointAtLength(percentage * totalLength);
+                    handleKnob.setAttribute('cx', pointLocation.x);
+                    handleKnob.setAttribute('cy', pointLocation.y);
+                }
+                
+                if (gaugeValue) gaugeValue.innerText = hours.toFixed(1);
+
+                if (gaugeStatus) {
+                    if (hours >= 15) {
+                        gaugeStatus.innerText = "Deep in the zone. Pure musical bliss! 🎧";
+                    } else if (hours >= 10) {
+                        gaugeStatus.innerText = "You hit your weekly vibe target! Keep flowing. ✨";
+                    } else {
+                        gaugeStatus.innerText = "Time to get lost in the soul. Let the music play. ☕";
+                    }
+                }
+            }
+
+            gaugeSlider.addEventListener('input', updateGaugeView);
+            updateGaugeView();
+        }
+
+        // Audio Flow //
+        const audio = document.getElementById('main-audio');
+        if (audio) {
+            const cachedSrc = localStorage.getItem('globalTrackSrc');
+            const cachedTime = localStorage.getItem('globalTrackTime');
+            const isPlaying = localStorage.getItem('globalIsPlaying');
+            
+            if (cachedSrc) {
+                audio.src = cachedSrc;
+                audio.currentTime = cachedTime ? parseFloat(cachedTime) : 0;
+                
+                if (document.getElementById('playerTitle')) document.getElementById('playerTitle').innerText = localStorage.getItem('globalTrackTitle');
+                if (document.getElementById('playerArtist')) document.getElementById('playerArtist').innerText = localStorage.getItem('globalTrackArtist');
+                if (document.getElementById('playerImg')) document.getElementById('playerImg').src = localStorage.getItem('globalTrackImg');
+                
+                if (isPlaying === 'true') {
+                    audio.play().catch(err => console.log("Handoff audio recovery defer: ", err));
+                    const playBtn = document.querySelector('.play-btn');
+                    if (playBtn) playBtn.innerText = "⏸️";
+                }
+            }
+
+            audio.addEventListener('timeupdate', () => {
+                localStorage.setItem('globalTrackTime', audio.currentTime);
+            });
+        }
+    });
+
+//  3. Donut Chart //
+const genreCanvas = document.getElementById('genreChart');
+if (genreCanvas) {
+    const genreCtx = genreCanvas.getContext('2d');
+    new Chart(genreCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['R&B/Soul', 'Indie Rock', 'Pop/K-Pop'],
+            datasets: [{
+                data: [50, 30, 20], 
+                backgroundColor: [
+                    'rgba(255, 182, 193, 0.75)', /* Pink tint */
+                    'rgba(210, 180, 222, 0.75)', /* Purple tint */
+                    'rgba(163, 210, 202, 0.75)'  /* Teal tint */
+                ],
+                borderColor: [
+                    'rgba(255, 77, 136, 1)',
+                    'rgba(186, 104, 200, 1)',
+                    'rgba(77, 182, 172, 1)'
+                ],
+                borderWidth: 2,
+                hoverOffset: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '65%', 
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        color: '#2A1A0A',
+                        font: { size: 11, weight: '500' },
+                        padding: 15,
+                        usePointStyle: true
+                    }
+                }
+            }
+        }
+    });
+}
+</script>
+
+</body>
+</html>

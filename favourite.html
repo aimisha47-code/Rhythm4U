@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Favorites | Soul Space</title>
+    <link rel="stylesheet" href="CSS/favourite.css">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="nav-left">
+        <a href="homepage.html" id="backBtn" class="back-btn">← Back</a>
+    </div>
+
+    <div class="nav-center">
+        <a href="artist.html">Artist</a>
+        <a href="review.html">Review</a>
+        <a href="playlist.html">Playlist</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="favourite.html" class="heart-btn">❤️</a>
+    </div>
+</nav>
+
+    <main>
+        <header class="fav-header">
+            <h1>Your Favorites <span>🤍</span></h1>
+        </header>
+
+        <div class="fav-list">
+            <div class="fav-row" onclick="playSong('Never Let Go', 'LNGSHOT', 'image/shot_callers.jpg', 'music/neverletgo.mp3')">
+                <div class="song-meta">
+                    <img src="image/shot_callers.jpg" alt="Art" class="row-art">
+                    <div>
+                        <h3>Never Let Go</h3>
+                        <p>LNGSHOT</p>
+                    </div>
+                </div>
+                <div class="row-stats">
+                    <span>3:45</span>
+                    <button class="row-play-btn">▶</button>
+                </div>
+            </div>
+
+            <div class="fav-row" onclick="playSong('Always', 'Daniel Caesar', 'image/never_enough.jpg', 'music/Daniel_Caesar_Always.mp3')">
+                <div class="song-meta">
+                    <img src="image/never_enough.jpg" alt="Art" class="row-art">
+                    <div>
+                        <h3>Always</h3>
+                        <p>Daniel Caesar</p>
+                    </div>
+                </div>
+                <div class="row-stats">
+                    <span>4:20</span>
+                    <button class="row-play-btn">▶</button>
+                </div>
+            </div>
+
+            <div class="fav-row" onclick="playSong('Lautan', 'Yuna', 'image/lautan.jpg', 'music/lautan_yuna.mp3')">
+                <div class="song-meta">
+                    <img src="image/lautan.jpg" alt="Art" class="row-art">
+                    <div>
+                        <h3>Lautan</h3>
+                        <p>Yuna</p>
+                    </div>
+                </div>
+                <div class="row-stats">
+                    <span>4:42</span>
+                    <button class="row-play-btn">▶</button>
+                </div>
+            </div>
+
+            <div class="fav-row" onclick="playSong('Damn Right', 'JENNIE', 'image/ruby_jennie.png', 'music/damn_right.mp3')">
+                <div class="song-meta">
+                    <img src="image/ruby_jennie.png" alt="Art" class="row-art">
+                    <div>
+                        <h3>Damn Right</h3>
+                        <p>JENNIE</p>
+                    </div>
+                </div>
+                <div class="row-stats">
+                    <span>3:50</span>
+                    <button class="row-play-btn">▶</button>
+                </div>
+            </div>
+
+            <div class="fav-row" onclick="playSong('Baby Dont Cry', 'EXO', 'image/baby_dont_cry.jpg', 'music/baby_dont_cry.mp3')">
+                <div class="song-meta">
+                    <img src="image/baby_dont_cry.jpg" alt="Art" class="row-art">
+                    <div>
+                        <h3>Baby Don't Cry</h3>
+                        <p>EXO</p>
+                    </div>
+                </div>
+                <div class="row-stats">
+                    <span>3:54</span>
+                    <button class="row-play-btn">▶</button>
+                </div>
+            </div>
+
+            <div class="fav-row" onclick="playSong('Emily Song', 'Daniel Caesar', 'image/emily_song.png', 'music/emily_song.mp3')">
+                <div class="song-meta">
+                    <img src="image/emily_song.png" alt="Art" class="row-art">
+                    <div>
+                        <h3>Emily's Song</h3>
+                        <p>Daniel Caesar</p>
+                    </div>
+                </div>
+                <div class="row-stats">
+                    <span>2:54</span>
+                    <button class="row-play-btn">▶</button>
+                </div>
+            </div>
+
+            <div class="fav-row" onclick="playSong('JoyRide', 'CORTIS', 'image/cortis.jpeg', 'music/JoyRide.mp3')">
+                <div class="song-meta">
+                    <img src="image/cortis.jpeg" alt="Art" class="row-art">
+                    <div>
+                        <h3>JoyRide</h3>
+                        <p>CORTIS</p>
+                    </div>
+                </div>
+                <div class="row-stats">
+                    <span>2:54</span>
+                    <button class="row-play-btn">▶</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<div class="music-player-bar" id="playerBar">
+    <div class="player-content">
+        <div class="current-track">
+            <img src="image/never_enough.jpg" id="playerImg" alt="Now Playing">
+            <div class="track-text">
+                <span id="playerTitle">Always</span>
+                <span id="playerArtist">Daniel Caesar</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="ctrl-btn">⏮</button>
+            <button class="play-btn" onclick="togglePlay()">▶</button>
+            <button class="ctrl-btn">⏭</button>
+        </div>
+
+        <div class="volume-ctrl">
+            <span>🔈</span>
+            <input type="range" class="vol-slider">
+        </div>
+    </div>
+    <div class="progress-container">
+        <div class="progress-fill"></div>
+    </div>
+</div>
+
+    <nav class="bottom-nav">
+        <a href="homepage.html" class="nav-item">⌂ <span>Home</span></a>
+        <a href="profile.html" class="nav-item">👤 <span>Profile</span></a>
+        <a href="setting.html" class="nav-item">⚙ <span>Settings</span></a>
+    </nav>   
+
+    <audio id="main-audio"></audio>
+
+    <script>
+    const audio = document.getElementById('main-audio');
+
+    function playSong(title, artist, imgSrc, audioSrc) {
+        document.getElementById('playerTitle').innerText = title;
+        document.getElementById('playerArtist').innerText = artist;
+        document.getElementById('playerImg').src = imgSrc;
+
+        audio.src = audioSrc; 
+        audio.play();
+
+        const playBtn = document.querySelector('.play-btn');
+        playBtn.innerText = "⏸";
+    }
+
+    function togglePlay() {
+        const playBtn = document.querySelector('.play-btn');
+        
+        if (!audio.src) return;
+
+        if (audio.paused) {
+            audio.play();
+            playBtn.innerText = "⏸";
+        } else {
+            audio.pause();
+            playBtn.innerText = "▶";
+        }
+    }
+    </script>
+</body>
+</html>

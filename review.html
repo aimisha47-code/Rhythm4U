@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My personal Thoughts</title>
+    <link rel="stylesheet" href="CSS/review.css">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="nav-left">
+        <a href="homepage.html" id="backBtn" class="back-btn">← Back</a>
+    </div>
+
+    <div class="nav-center">
+        <a href="artist.html">Artist</a>
+        <a href="review.html">Review</a>
+        <a href="playlist.html">Playlist</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="favourite.html" class="heart-btn">❤️</a>
+    </div>
+
+</nav>
+
+<main class="review-container">
+    <section class="glass-form">
+        <h2>Write a Review</h2>
+        <div class="input-group">
+            <input type="text" id="album-title" placeholder="Album or Song Title...">
+            <input type="text" id="cover-url" placeholder="Image URL (e.g. image address)">
+            <select id="star-rating">
+                <option value="5">⭐⭐⭐⭐⭐ (Masterpiece)</option>
+                <option value="4">⭐⭐⭐⭐ (Great)</option>
+                <option value="3">⭐⭐⭐ (Good)</option>
+                <option value="2">⭐⭐ (Okay)</option>
+                <option value="1">⭐ (Not for me)</option>
+            </select>
+            <textarea id="review-text" placeholder="Share your personal thoughts..."></textarea>
+            <button onclick="addReview()" class="action-btn">Post Review</button>
+        </div>
+    </section>
+
+    <div id="review-feed"></div>
+</main>
+
+<nav class="bottom-nav">
+    <a href="homepage.html" class="nav-item">⌂ <span>Home</span></a>
+    <a href="profile.html" class="nav-item">👤 <span>Profile</span></a>
+    <a href="setting.html" class="nav-item">⚙ <span>Settings</span></a>
+</nav>   
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    initializeDiaryDataset();
+    displayReviews();
+});
+
+function initializeDiaryDataset() {
+    let reviews = localStorage.getItem('myReviews');
+    
+    if (!reviews || JSON.parse(reviews).length === 0) {
+        const personalDiaryDataset = [
+            {
+                id: 1001,
+                title: "End of Beginning-Djo",
+                cover: "image/djo.png", 
+                rating: "⭐⭐⭐⭐⭐",
+                text: "This song may bring different memories and views to each person, but for me, this song always takes me back to my Umrah in 2025. Where every step has memories and it has a different version of me."
+            },
+            {
+                id: 1002,
+                title: "Jump-Blackpink",
+                cover: "image/jump.jpg", 
+                rating: "⭐",
+                text: "I was never a fan of this musical style. I expect more from them "
+            },
+            {
+                id: 1003,
+                title: "Redred-Cortis",
+                cover: "image/redred.png", 
+                rating: "⭐⭐⭐⭐",
+                text: "This song is kind of genre i expect from them, it was really something unique "
+            }
+        ];
+        localStorage.setItem('myReviews', JSON.stringify(personalDiaryDataset));
+    }
+}
+
+function addReview() {
+    const title = document.getElementById('album-title').value;
+    const cover = document.getElementById('cover-url').value;
+    const rating = document.getElementById('star-rating').value;
+    const text = document.getElementById('review-text').value;
+
+    if (!title || !text) {
+        alert("Please at least name the music and write a thought!");
+        return;
+    }
+
+    const newReview = {
+        id: Date.now(),
+        title,
+        cover: cover || 'https://via.placeholder.com/150', 
+        rating: "⭐".repeat(rating),
+        text
+    };
+
+    let reviews = JSON.parse(localStorage.getItem('myReviews')) || [];
+    reviews.unshift(newReview); 
+    localStorage.setItem('myReviews', JSON.stringify(reviews));
+
+    document.getElementById('album-title').value = "";
+    document.getElementById('cover-url').value = "";
+    document.getElementById('review-text').value = "";
+    displayReviews();
+}
+
+function displayReviews() {
+    const feed = document.getElementById('review-feed');
+    const reviews = JSON.parse(localStorage.getItem('myReviews')) || [];
+    
+    if (reviews.length === 0) {
+        feed.innerHTML = `<p style="text-align: center; opacity: 0.6; color: #2A1A0A;">Your song diary is empty.</p>`;
+        return;
+    }
+
+    feed.innerHTML = reviews.map(rev => `
+        <div class="review-card">
+            <img src="${rev.cover}" class="review-cover" onerror="this.src='https://via.placeholder.com/150'">
+            <div class="review-content">
+                <h3>${rev.title}</h3>
+                <div class="stars">${rev.rating}</div>
+                <p style="margin-top:10px; font-style: italic;">"${rev.text}"</p>
+                <button onclick="deleteReview(${rev.id})" class="delete-btn">Delete Review</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function deleteReview(id) {
+    let reviews = JSON.parse(localStorage.getItem('myReviews')) || [];
+    reviews = reviews.filter(rev => rev.id !== id);
+    localStorage.setItem('myReviews', JSON.stringify(reviews));
+    displayReviews();
+}
+</script>
+</body>
+</html>
